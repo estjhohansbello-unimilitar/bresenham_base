@@ -141,3 +141,26 @@ function bresenham(x0, y0, x1, y1) {
         }
     }
 }
+/**
+ * Función principal del programa.
+ * 
+ * - Limpia el entorno
+ * - Dibuja los ejes
+ * - Obtiene valores del usuario
+ * - Ejecuta Bresenham
+ */
+function dibujar() {
+
+    limpiar();
+    dibujarEjes();
+    paso = 0;
+
+    // Obtener valores desde inputs
+    const x0 = parseInt(document.getElementById("x0").value);
+    const y0 = parseInt(document.getElementById("y0").value);
+    const x1 = parseInt(document.getElementById("x1").value);
+    const y1 = parseInt(document.getElementById("y1").value);
+
+    // Ejecutar algoritmo
+    bresenham(x0, y0, x1, y1);
+}
