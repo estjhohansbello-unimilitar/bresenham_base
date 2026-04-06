@@ -1,0 +1,166 @@
+// Obtención del canvas y su contexto de dibujo 2D
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+// Escala: cada unidad del plano cartesiano equivale a 20px
+const escala = 20;
+
+/**
+ * Limpia completamente el canvas y la tabla de resultados.
+ * Se utiliza antes de cada nueva ejecución del algoritmo.
+ */
+function limpiar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.querySelector("#tabla tbody").innerHTML = "";
+}
+
+/**
+ * Dibuja un "píxel" escalado en el canvas.
+ * Se usa para representar los puntos calculados por Bresenham.
+ * 
+ * @param {number} x - Coordenada X
+ * @param {number} y - Coordenada Y
+ */
+function plot(x, y) {
+    // Se invierte el eje Y para simular plano cartesiano
+    ctx.fillRect(
+        x * escala,
+        canvas.height - y * escala,
+        escala,
+        escala
+    );
+}
+/**
+ * Dibuja los ejes cartesianos (X e Y) junto con sus marcas numéricas.
+ * Permite visualizar mejor la ubicación de los puntos.
+ */
+function dibujarEjes() {
+
+    ctx.strokeStyle = "gray";
+    ctx.beginPath();
+
+    // Eje X (horizontal)
+    ctx.moveTo(0, canvas.height);
+    ctx.lineTo(canvas.width, canvas.height);
+
+    // Eje Y (vertical)
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, canvas.height);
+
+    ctx.stroke(); // dibuja la linea 
+
+    // Dibujar marcas numéricas en eje X
+    ctx.fillStyle = "black";
+    for (let i = 0; i < canvas.width / escala; i++) {
+        ctx.fillText(i, i * escala, canvas.height - 5);
+    }
+
+    // Dibujar marcas numéricas en eje Y
+    for (let i = 0; i < canvas.height / escala; i++) {
+        ctx.fillText(i, 5, canvas.height - i * escala);
+    }
+} 
+// Contador global de pasos del algoritmo
+let paso = 0;
+
+/**
+ * Inserta una fila en la tabla con los valores actuales del algoritmo.
+ * Permite observar el proceso paso a paso.
+ * 
+ * @param {number} x - Coordenada X actual
+ * @param {number} y - Coordenada Y actual
+ * @param {number} err - Error actual
+ * @param {number} e2 - Valor auxiliar (2*err)
+ */
+function agregarFila(x, y, err, e2) { // funcion que agrega una nueva fila a la tabla con los valores actuales del algoritmo
+
+    //selecciona el cuerpo de la tabla donde se agregarán las filas
+    const tabla = document.querySelector("#tabla tbody");
+    //crea la fila
+    const fila = `
+        <tr>
+            <td>${paso++}</td>
+            <td>${x}</td>
+            <td>${y}</td>
+            <td>${err}</td>
+            <td>${e2}</td>
+        </tr>
+    `;
+//agrega una nueva fila al cuerpo de la tabla ya existente 
+    tabla.innerHTML += fila;
+}
+//Algoritmo de Bresenham para dibujar una línea entre dos puntos (x0, y0) y (x1, y1) 
+/**
+ * Implementación del algoritmo de Bresenham.
+ * Calcula los puntos de una línea entre dos coordenadas.
+ * 
+ * Además, registra cada paso en la tabla.
+ * 
+ * @param {number} x0 - Coordenada inicial X
+ * @param {number} y0 - Coordenada inicial Y
+ * @param {number} x1 - Coordenada final X
+ * @param {number} y1 - Coordenada final Y
+ */
+function bresenham(x0, y0, x1, y1) {
+
+    // Diferencias absolutas
+    let dx = Math.abs(x1 - x0);
+    let dy = Math.abs(y1 - y0);
+
+    // Dirección de incremento
+    let sx = (x0 < x1) ? 1 : -1;
+    let sy = (y0 < y1) ? 1 : -1;
+
+    // Error inicial
+    let err = dx - dy;
+
+    while (true) {
+
+        // Dibujar punto actual
+        plot(x0, y0);
+
+        // Calcular doble del error
+        let e2 = 2 * err;
+
+        // Registrar en tabla
+        agregarFila(x0, y0, err, e2); // agrega el registro actual a la tabla con los valores de x, y, err y e2 
+
+        // Condición de parada
+        if (x0 === x1 && y0 === y1) break;
+
+        // Ajuste en X
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+
+        // Ajuste en Y
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
+    }
+}
+/**
+ * Función principal del programa.
+ * 
+ * - Limpia el entorno
+ * - Dibuja los ejes
+ * - Obtiene valores del usuario
+ * - Ejecuta Bresenham
+ */
+function dibujar() {
+
+    limpiar();
+    dibujarEjes();
+    paso = 0;
+
+    // Obtener valores desde inputs
+    const x0 = parseInt(document.getElementById("x0").value);
+    const y0 = parseInt(document.getElementById("y0").value);
+    const x1 = parseInt(document.getElementById("x1").value);
+    const y1 = parseInt(document.getElementById("y1").value);
+
+    // Ejecutar algoritmo
+    bresenham(x0, y0, x1, y1);
+}

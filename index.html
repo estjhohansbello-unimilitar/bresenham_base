@@ -1,1 +1,56 @@
-<h1>Titulo</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<!-- estilos de css -->
+    <style> 
+        body {
+            body { font-family: Arial; }
+    canvas { border: 1px solid black; }
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;}
+        }
+    </style>
+</head>
+<body>
+<!-- Título principal -->
+<h2>Algoritmo de Bresenham</h2>
+
+<!-- Inputs para ingresar coordenadas -->
+<label>x0: <input type="number" id="x0"></label>
+<label>y0: <input type="number" id="y0"></label>
+<label>x1: <input type="number" id="x1"></label>
+<label>y1: <input type="number" id="y1"></label>
+
+<!-- Botón que ejecuta el algoritmo -->
+<button onclick="dibujar()">Dibujar</button>
+
+<br><br>
+
+<!-- Canvas donde se dibuja la línea -->
+<canvas id="canvas" width="500" height="500"></canvas>
+
+<!-- Tabla donde se muestran los pasos -->
+<h3>Tabla de iteraciones</h3>
+<table id="tabla">
+    <thead>
+        <tr>
+            <th>Paso</th>
+            <th>x</th>
+            <th>y</th>
+            <th>err</th>
+            <th>e2</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<!-- Script que contiene la lógica del algoritmo de Bresenham -->
+<script src="script.js"></script>
+
+
+</body>
+</html>
