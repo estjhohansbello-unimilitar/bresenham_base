@@ -34,6 +34,8 @@ function plot(x, y) {
  * Dibuja los ejes cartesianos (X e Y) junto con sus marcas numéricas.
  * Permite visualizar mejor la ubicación de los puntos.
  */
+
+/**
 function dibujarEjes() {
 
     ctx.strokeStyle = "gray";
@@ -62,6 +64,38 @@ function dibujarEjes() {
 } 
 // Contador global de pasos del algoritmo
 let paso = 0;
+ */
+// Dibuja una cuadrícula para mejorar la visualización del plano cartesiano.
+function dibujarCuadricula(maxX, maxY) {
+    ctx.strokeStyle = "#ccc";
+    ctx.lineWidth = 1;
+
+    // Líneas verticales
+    for (let i = 0; i <= maxX; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * escala, 0);
+        ctx.lineTo(i * escala, canvas.height);
+        ctx.stroke();
+    }
+
+    // Líneas horizontales
+    for (let i = 0; i <= maxY; i++) {
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height - i * escala);
+        ctx.lineTo(canvas.width, canvas.height - i * escala);
+        ctx.stroke();
+    }
+
+    // Números
+    ctx.fillStyle = "black";
+    for (let i = 0; i <= maxX; i++) {
+        ctx.fillText(i, i * escala, canvas.height - 5);
+    }
+
+    for (let i = 0; i <= maxY; i++) {
+        ctx.fillText(i, 5, canvas.height - i * escala);
+    }
+}
 
 /**
  * Inserta una fila en la tabla con los valores actuales del algoritmo.
