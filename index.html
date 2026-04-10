@@ -31,23 +31,29 @@
 
 <br><br>
 
-<!-- Canvas donde se dibuja la línea -->
-<canvas id="canvas" width="500" height="500"></canvas>
+<div style="display: flex; gap: 20px; align-items: flex-start;">
 
-<!-- Tabla donde se muestran los pasos -->
-<h3>Tabla de iteraciones</h3>
-<table id="tabla">
-    <thead>
-        <tr>
-            <th>Paso</th>
-            <th>x</th>
-            <th>y</th>
-            <th>err</th>
-            <th>e2</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+    <!-- Canvas -->
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+    <!-- Tabla -->
+    <div>
+        <h3>Tabla de iteraciones</h3>
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th>Paso</th>
+                    <th>x</th>
+                    <th>y</th>
+                    <th>err</th>
+                    <th>e2</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+</div>
 <!-- Script que contiene la lógica del algoritmo de Bresenham -->
 <script src="script.js"></script>
 
