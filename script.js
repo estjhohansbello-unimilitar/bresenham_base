@@ -2,8 +2,8 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-// Escala: cada unidad del plano cartesiano equivale a 20px
-const escala = 20;
+// Se agrega una escala dinamica en lugar de un valor fijo para mejorar la visualización en diferentes tamaños de canvas
+let escala;
 
 /**
  * Limpia completamente el canvas y la tabla de resultados.
@@ -35,36 +35,7 @@ function plot(x, y) {
  * Permite visualizar mejor la ubicación de los puntos.
  */
 
-/**
-function dibujarEjes() {
 
-    ctx.strokeStyle = "gray";
-    ctx.beginPath();
-
-    // Eje X (horizontal)
-    ctx.moveTo(0, canvas.height);
-    ctx.lineTo(canvas.width, canvas.height);
-
-    // Eje Y (vertical)
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, canvas.height);
-
-    ctx.stroke(); // dibuja la linea 
-
-    // Dibujar marcas numéricas en eje X
-    ctx.fillStyle = "black";
-    for (let i = 0; i < canvas.width / escala; i++) {
-        ctx.fillText(i, i * escala, canvas.height - 5);
-    }
-
-    // Dibujar marcas numéricas en eje Y
-    for (let i = 0; i < canvas.height / escala; i++) {
-        ctx.fillText(i, 5, canvas.height - i * escala);
-    }
-} 
-// Contador global de pasos del algoritmo
-let paso = 0;
- */
 // Dibuja una cuadrícula para mejorar la visualización del plano cartesiano.
 function dibujarCuadricula(maxX, maxY) {
     ctx.strokeStyle = "#ccc";
