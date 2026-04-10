@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 
 // Se agrega una escala dinamica en lugar de un valor fijo para mejorar la visualización en diferentes tamaños de canvas
 let escala;
-
+let paso = 0; // Contador de pasos para la tabla de resultados
 /**
  * Limpia completamente el canvas y la tabla de resultados.
  * Se utiliza antes de cada nueva ejecución del algoritmo.
