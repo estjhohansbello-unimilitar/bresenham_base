@@ -155,15 +155,30 @@ function bresenham(x0, y0, x1, y1) {
  * - Ejecuta Bresenham
  */
 function dibujar() {
-// Nueva funcion dibujar para que las lineas se ajusten al tamaño del canvas y se vean mejor en diferentes resoluciones
-//determina el tamaño máximo 
-const maxX= Math.max(x0,x1);
-const maxY= Math.max(y0,y1);
-//Calcular la escala dinámica 
-escala= Math.min(
-    canvas.width / (maxX + 1), 
-    canvas.height / (maxY + 1)
-);
 
+    limpiar();
+    paso = 0;
+
+    // Obtener valores desde inputs
+    const x0 = parseInt(document.getElementById("x0").value);
+    const y0 = parseInt(document.getElementById("y0").value);
+    const x1 = parseInt(document.getElementById("x1").value);
+    const y1 = parseInt(document.getElementById("y1").value);
+
+    // Determinar tamaño máximo
+    const maxX = Math.max(x0, x1);
+    const maxY = Math.max(y0, y1);
+
+    // Calcular escala dinámica
+    escala = Math.min(
+        canvas.width / (maxX + 1),
+        canvas.height / (maxY + 1)
+    );
+
+    // Dibujar cuadrícula
+    dibujarCuadricula(maxX, maxY);
+
+    // Ejecutar Bresenham
+    bresenham(x0, y0, x1, y1);
 }
 
