@@ -21,14 +21,15 @@ function limpiar() {
  * @param {number} x - Coordenada X
  * @param {number} y - Coordenada Y
  */
+
+//se corrige la funcion plot para que dibuje un rectangulo en lugar de un punto, utilizando la escala dinamica para mejorar la visualizacion de los puntos en el canvas
 function plot(x, y) {
-    // Se invierte el eje Y para simular plano cartesiano
-    ctx.fillRect(
-        x * escala,
-        canvas.height - y * escala,
-        escala,
-        escala
-    );
+ctx.fillRect(
+    x * escala,
+    canvas.height - (y + 1) * escala,
+    escala,
+    escala
+);
 }
 /**
  * Dibuja los ejes cartesianos (X e Y) junto con sus marcas numéricas.
@@ -38,6 +39,7 @@ function plot(x, y) {
 
 // Dibuja una cuadrícula para mejorar la visualización del plano cartesiano.
 function dibujarCuadricula(maxX, maxY) {
+    
     ctx.strokeStyle = "#ccc";
     ctx.lineWidth = 1;
 
@@ -59,6 +61,7 @@ function dibujarCuadricula(maxX, maxY) {
 
     // Números
     ctx.fillStyle = "black";
+    ctx.font = "10px Arial";
     for (let i = 0; i <= maxX; i++) {
         ctx.fillText(i, i * escala, canvas.height - 5);
     }
